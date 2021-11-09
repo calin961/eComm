@@ -1,4 +1,9 @@
+<?php
+  use App\Http\Controllers\ProductController;
+  $total=ProductController::cartItem();
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
   <div class="container-fluid">
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,10 +27,16 @@
 
       </ul>
 
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Submit</button>
+      <form action="/search" class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" name="query" class="form-control search-box" placeholder="Search" aria-label="Search">
+        </div>
+        <button class="btn btn-default" type="submit">Search</button>
       </form>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">cart({{$total}})</a></li>
+      </ul>
 
     </div>
   </div>
