@@ -1,6 +1,9 @@
 <?php
   use App\Http\Controllers\ProductController;
-  $total=ProductController::cartItem();
+  $total=0;
+  if(Session::has('user')){
+    $total=ProductController::cartItem();
+  }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -13,17 +16,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Brand</a>
+          <a class="navbar-brand" href="/">E-Comm</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        
-        </li>
-        <li class="nav-item">
-          <a class="nav-link href="#">Orders</a>
-        </li>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="/myorders">Orders</a></li>
+        </ul>
 
       </ul>
 
@@ -35,7 +34,19 @@
       </form>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">cart({{$total}})</a></li>
+        <li><a href="/cartlist">cart({{$total}})</a></li>
+          @if(Session::has('user'))
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{Session::get('user')['name']}}
+            <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/logout">Logout</a></li>
+              </ul>
+          </li>
+          @else
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+          @endif
       </ul>
 
     </div>
